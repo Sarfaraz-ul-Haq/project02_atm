@@ -22,7 +22,7 @@ const promptUserIdAndPin = async () => {
   let { userID, userPin } = await inquirer.prompt([
     {
       name: "ID",
-      type: "input",
+      type: "number",
       message: chalk.gray("Please enter your user ID: "),
     },
     {
@@ -31,7 +31,14 @@ const promptUserIdAndPin = async () => {
       message: chalk.gray("Please enter your user pin: "),
     },
   ]);
+
+  if (isUserIDCorrect(userID)) {
+    promptUserToSelectOption();
+  } else {
+    console.log("Incorrect user ID / pin");
+  }
 };
+promptUserIdAndPin();
 
 let bankBalance: number;
 
@@ -72,12 +79,11 @@ const promptUserToSelectOption = async () => {
   }
 };
 
-// main function to start the ATM
-const start = async () => {
-  await displayTitleAndTagline();
-  generateRandomBankBalance();
-  await promptUserIdAndPin();
-  promptUserToSelectOption();
-};
+// // main function to start the ATM
+// const start = async () => {
+//   await displayTitleAndTagline();
+//   generateRandomBankBalance();
+//   await promptUserIdAndPin();
+// };
 
-start();
+// start();

@@ -16,29 +16,21 @@ const displayTitleAndTagline = async () => {
     "gray"
   );
 };
-
 // function to prompt and authenticate user ID and pin
 const promptUserIdAndPin = async () => {
-  let { userID, userPin } = await inquirer.prompt([
+  let userAnswer = await inquirer.prompt([
     {
       name: "ID",
       type: "number",
-      message: chalk.gray("Please enter your user ID: "),
+      message: chalk.gray("Enter your user ID: "),
     },
     {
       name: "pin",
       type: "password",
-      message: chalk.gray("Please enter your user pin: "),
+      message: chalk.gray("Enter your user pin: "),
     },
   ]);
-
-  if (isUserIDCorrect(userID)) {
-    promptUserToSelectOption();
-  } else {
-    console.log("Incorrect user ID / pin");
-  }
 };
-promptUserIdAndPin();
 
 let bankBalance: number;
 
@@ -54,10 +46,57 @@ const promptUserToSelectOption = async () => {
     {
       name: "option",
       type: "list",
-      choices: ["Cash withdraw", "Exit"],
+      choices: [
+        "Balance Inquiry",
+        "Fast Cash",
+        "Cash Withdrawal",
+        "Cash Deposit",
+        "Change Pin",
+        "Cash withdraw",
+        "Exit",
+      ],
       message: chalk.gray(`\n Select any option`),
     },
   ]);
+
+  if (selectedOption.option == "Balance Inquiry") {
+    console.log(chalk.green(`\nCurrent Bank Balance is : ${bankBalance}`));
+  }
+
+  if (selectedOption.option == "Fast Cash") {
+    console.log(chalk.green(`\n Current Bank Balance: ${bankBalance}`));
+
+    const fastCash = await inquirer.prompt({
+      name: "amount",
+      type: "list",
+      choices: ["5000", "10000", "15000", "20000", "25000", "30000"],
+      message: "Select your amount",
+    });
+    if (fastCash.amount == 5000) {
+      console.log(
+        chalk.green(`
+    Current Bank Balance: ${bankBalance}
+    ----------------------------`)
+      );
+      bankBalance -= 5000;
+      console.log(bankBalance);
+    } else if (fastCash.amount == 10000) {
+      bankBalance -= 10000;
+      console.log(bankBalance);
+    } else if (fastCash.amount == 15000) {
+      bankBalance -= 15000;
+      console.log(bankBalance);
+    } else if (fastCash.amount == 20000) {
+      bankBalance -= 20000;
+      console.log(bankBalance);
+    } else if (fastCash.amount == 25000) {
+      bankBalance -= 25000;
+      console.log(bankBalance);
+    } else {
+      bankBalance -= 30000;
+      console.log(bankBalance);
+    }
+  }
 
   if (selectedOption.option == "Cash withdraw") {
     console.log(
@@ -69,21 +108,37 @@ const promptUserToSelectOption = async () => {
       {
         name: "amount",
         type: "number",
-        message: chalk.gray(`\n Please enter your amount: `),
+        message: chalk.gray(`\n Enter your amount: `),
       },
     ]);
     bankBalance -= withdrawAmount.amount;
     console.log(
-      chalk.green(`\n (Bank Balance after Withdrawal: ${bankBalance})`)
+      chalk.green(`\n (Bank Balance after withdrawal: ${bankBalance})`)
     );
+  }
+
+  if (selectedOption.option == "Cash Deposit") {
+    console.log(
+      chalk.green(`
+  Current Bank Balance: ${bankBalance}
+  ----------------------------`)
+    );
+    const deposit = await inquirer.prompt({
+      name: "amount",
+      type: "number",
+      message: "Enter deposit amount: ",
+    });
+    bankBalance += deposit.amount;
+    console.log(`Bank Balance after deposit: ${bankBalance}`);
   }
 };
 
-// // main function to start the ATM
-// const start = async () => {
-//   await displayTitleAndTagline();
-//   generateRandomBankBalance();
-//   await promptUserIdAndPin();
-// };
+// main function to start the ATM
+const start = async () => {
+  await displayTitleAndTagline();
+  generateRandomBankBalance();
+  await promptUserIdAndPin();
+  await promptUserToSelectOption();
+};
 
-// start();
+start();

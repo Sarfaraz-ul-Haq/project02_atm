@@ -3,6 +3,7 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
 import showBanner from "node-banner";
+import { isUserIDCorrect, isUserPinCorrect } from "./userAuthentication.js";
 
 // function to display atm title and tagline
 const displayTitleAndTagline = async () => {

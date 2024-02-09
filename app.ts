@@ -31,7 +31,14 @@ const promptUserIdAndPin = async () => {
     },
   ]);
 };
-let bankBalance = Math.floor(Math.random() * 1000000 + 1);
+
+let bankBalance: number;
+
+// function to generate random bank balance
+const generateRandomBankBalance = () => {
+  bankBalance = Math.floor(Math.random() * 1000000 + 1);
+  return bankBalance;
+};
 
 // function to prompt user to select an option
 const promptUserToSelectOption = async () => {
@@ -63,6 +70,13 @@ const promptUserToSelectOption = async () => {
     );
   }
 };
-await displayTitleAndTagline();
-await promptUserIdAndPin();
-promptUserToSelectOption();
+
+// main function to start the ATM
+const start = async () => {
+  await displayTitleAndTagline();
+  generateRandomBankBalance();
+  await promptUserIdAndPin();
+  promptUserToSelectOption();
+};
+
+start();

@@ -3,7 +3,18 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
 import showBanner from "node-banner";
+import { createSpinner } from "nanospinner";
 import { isUserIDCorrect, isUserPinCorrect } from "./userAuthentication.js";
+
+// // function to display a note for 2 seconds that all the user data is generated randomly
+// const note = async () => {
+//   const spinner = await createSpinner(
+//     chalk.red(` Note: All the user data is generated randomly`)
+//   ).start();
+
+//   await setTimeout(spinner.stop, 4000);
+//   console.clear();
+// };
 
 // function to display atm title and tagline
 const displayTitleAndTagline = async () => {
@@ -35,7 +46,7 @@ const promptUserIdAndPin = async () => {
 let bankBalance: number;
 
 // function to generate random bank balance
-const generateRandomBankBalance = () => {
+const generateRandomBankBalance = async () => {
   bankBalance = Math.floor(Math.random() * 1000000 + 1);
   return bankBalance;
 };
@@ -52,7 +63,6 @@ const promptUserToSelectOption = async () => {
         "Cash Withdrawal",
         "Cash Deposit",
         "Change Pin",
-        "Cash withdraw",
         "Exit",
       ],
       message: chalk.gray(`\n Select any option`),
@@ -69,36 +79,50 @@ const promptUserToSelectOption = async () => {
     const fastCash = await inquirer.prompt({
       name: "amount",
       type: "list",
-      choices: ["5000", "10000", "15000", "20000", "25000", "30000"],
-      message: "Select your amount",
+      choices: ["10000", "20000", "30000", "40000", "50000"],
+      message: chalk.gray(`\n Select your amount`),
     });
-    if (fastCash.amount == 5000) {
+    if (fastCash.amount == 10000) {
       console.log(
         chalk.green(`
-    Current Bank Balance: ${bankBalance}
-    ----------------------------`)
+ Current Bank Balance: ${bankBalance}
+    `)
       );
-      bankBalance -= 5000;
-      console.log(bankBalance);
-    } else if (fastCash.amount == 10000) {
-      bankBalance -= 10000;
-      console.log(bankBalance);
-    } else if (fastCash.amount == 15000) {
-      bankBalance -= 15000;
-      console.log(bankBalance);
+      bankBalance -= 2000;
+      console.log(
+        `\n ${chalk.green(
+          `\n Bank Balance after withdrawal: ${bankBalance}}`
+        )}  `
+      );
     } else if (fastCash.amount == 20000) {
       bankBalance -= 20000;
-      console.log(bankBalance);
-    } else if (fastCash.amount == 25000) {
-      bankBalance -= 25000;
-      console.log(bankBalance);
+      console.log(
+        chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
+      );
+    } else if (fastCash.amount == 30000) {
+      bankBalance -= 30000;
+      console.log(
+        chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
+      );
+    } else if (fastCash.amount == 40000) {
+      bankBalance -= 40000;
+      console.log(
+        chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
+      );
+    } else if (fastCash.amount == 50000) {
+      bankBalance -= 50000;
+      console.log(
+        chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
+      );
     } else {
       bankBalance -= 30000;
-      console.log(bankBalance);
+      console.log(
+        chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
+      );
     }
   }
 
-  if (selectedOption.option == "Cash withdraw") {
+  if (selectedOption.option == "Cash Withdrawal") {
     console.log(
       chalk.green(`
   Current Bank Balance: ${bankBalance}
@@ -129,7 +153,7 @@ const promptUserToSelectOption = async () => {
       message: "Enter deposit amount: ",
     });
     bankBalance += deposit.amount;
-    console.log(`Bank Balance after deposit: ${bankBalance}`);
+    console.log(chalk.green(`\n Bank Balance after deposit: ${bankBalance}`));
   }
 };
 

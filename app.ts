@@ -17,7 +17,7 @@ const displayTitleAndTagline = async () => {
   );
 };
 
-// function to prompt user to enter user ID and pin
+// function to prompt and authenticate user ID and pin
 const promptUserIdAndPin = async () => {
   let { userID, userPin } = await inquirer.prompt([
     {

@@ -42,10 +42,14 @@ const promptUserIdAndPin = async () => {
     if (isUserPinCorrect(userAnswer.pin)) {
       await promptUserToSelectOption();
     } else {
-      console.log(chalk.red(` Wrong user pin`));
+      console.clear();
+      console.log(chalk.red(`\n Wrong user pin, please try again.`));
+      promptUserIdAndPin();
     }
   } else {
-    console.log(chalk.red(` Wrong user ID`));
+    console.clear();
+    console.log(chalk.red(`\n Wrong user ID, please try again.`));
+    promptUserIdAndPin();
   }
 };
 
@@ -73,6 +77,7 @@ const promptUserToContinueOrExit = async () => {
 };
 // function to prompt user to select an option
 const promptUserToSelectOption = async () => {
+  console.clear();
   let selectedOption = await inquirer.prompt([
     {
       name: "option",
@@ -82,7 +87,6 @@ const promptUserToSelectOption = async () => {
         "Fast Cash",
         "Cash Withdrawal",
         "Cash Deposit",
-        "Change Pin",
         "Exit",
       ],
       message: chalk.gray(`\n Select any option`),

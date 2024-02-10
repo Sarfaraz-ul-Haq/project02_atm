@@ -93,13 +93,13 @@ const promptUserToSelectOption = async () => {
     },
   ]);
 
-  // balance inquiry
+  // if user selects "Balance Inquiry"
   if (selectedOption.option == "Balance Inquiry") {
     console.log(chalk.green(`\n Current Bank Balance is : ${bankBalance}`));
     promptUserToContinueOrExit();
   }
 
-  // fast cash
+  // if user selects "Fast Cash"
   if (selectedOption.option == "Fast Cash") {
     const fastCash = await inquirer.prompt({
       name: "amount",
@@ -147,7 +147,7 @@ const promptUserToSelectOption = async () => {
     }
   }
 
-  // cash withdrawal
+  // if user selects "Cash Withdrawal"
   if (selectedOption.option == "Cash Withdrawal") {
     console.log(
       chalk.green(`
@@ -168,7 +168,7 @@ const promptUserToSelectOption = async () => {
     promptUserToContinueOrExit();
   }
 
-  // cash deposit
+  // if user selects "Cash Deposit"
   if (selectedOption.option == "Cash Deposit") {
     console.log(
       chalk.green(`

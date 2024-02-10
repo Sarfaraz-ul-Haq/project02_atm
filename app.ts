@@ -37,6 +37,16 @@ const promptUserIdAndPin = async () => {
       message: chalk.gray("Enter your user pin: "),
     },
   ]);
+
+  if (isUserIDCorrect(userAnswer.ID)) {
+    if (isUserPinCorrect(userAnswer.pin)) {
+      await promptUserToSelectOption();
+    } else {
+      console.log(chalk.red(` Wrong user pin`));
+    }
+  } else {
+    console.log(chalk.red(` Wrong user ID`));
+  }
 };
 
 let bankBalance: number;
@@ -182,7 +192,6 @@ const start = async () => {
   await displayTitleAndTagline();
   generateRandomBankBalance();
   await promptUserIdAndPin();
-  await promptUserToSelectOption();
 };
 
 start();

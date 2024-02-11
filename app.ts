@@ -20,7 +20,7 @@ const displayTitleAndTagline = async () => {
 
 // function to display "Thanks for trying" message if user exits
 const thanks = async () => {
-  showBanner(`Thanks for trying !`, undefined, "green");
+  await showBanner(`Thanks for trying !`, undefined, "green");
 };
 
 // function to prompt and authenticate user ID and pin

@@ -5,7 +5,7 @@ export const displayTitleAndTagline = async (): Promise<void> => {
   await showBanner(
     `     CLI ATM`,
     `  Welcome to this console-based ATM application
-     _____________________________________________
+   _____________________________________________
     \n`,
     "green",
     "gray"

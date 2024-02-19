@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
-import { promptUserToSelectOption } from "./promptToSelectAnOption.js";
-import { thanks } from "./thanksForTrying.js";
+import { start } from "./promptToSelectAnOption.js";
+import { thanks } from "./thanks.js";
 
 // function to prompt user to use ATM again or exit
 export const promptUserToContinueOrExit = async (): Promise<void> => {
@@ -12,7 +12,7 @@ export const promptUserToContinueOrExit = async (): Promise<void> => {
     message: chalk.gray(`\n Do you want to use ATM again?`),
   });
   if (continueOrExit.userAns == "Yes") {
-    promptUserToSelectOption();
+    start();
   } else {
     thanks();
   }

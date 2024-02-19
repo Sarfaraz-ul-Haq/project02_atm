@@ -4,8 +4,9 @@ import showBanner from "node-banner";
 import { generateRandomBankBalance } from "./generateRandomBalance.js";
 import { promptUserToContinueOrExit } from "./useAtmAgain.js";
 
-// function to prompt user to select an option
-export const promptUserToSelectOption = async (): Promise<void> => {
+// start function
+export const start = async (): Promise<void> => {
+  // prompt the user to select an option
   console.clear();
   let selectedOption = await inquirer.prompt([
     {
@@ -38,57 +39,59 @@ export const promptUserToSelectOption = async (): Promise<void> => {
       choices: ["10000", "20000", "30000", "40000", "50000"],
       message: chalk.gray(`\n Select your amount`),
     });
-    if (fastCash.amount == 10000) {
+    if (fastCash.amount == 10000 && bankBalance >= 10000) {
       console.log(chalk.green(`\n Current Bank Balance: ${bankBalance}`));
       bankBalance -= 2000;
       console.log(
         chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}}`)
       );
       promptUserToContinueOrExit();
-    } else if (fastCash.amount == 20000) {
+    } else if (fastCash.amount == 20000 && bankBalance >= 20000) {
       bankBalance -= 20000;
       console.log(
         chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
       );
       promptUserToContinueOrExit();
-    } else if (fastCash.amount == 30000) {
+    } else if (fastCash.amount == 30000 && bankBalance >= 30000) {
       bankBalance -= 30000;
       console.log(
         chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
       );
       promptUserToContinueOrExit();
-    } else if (fastCash.amount == 40000) {
+    } else if (fastCash.amount == 40000 && bankBalance >= 40000) {
       bankBalance -= 40000;
       console.log(
         chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
       );
       promptUserToContinueOrExit();
-    } else if (fastCash.amount == 50000) {
+    } else if (fastCash.amount == 50000 && bankBalance >= 50000) {
       bankBalance -= 50000;
       console.log(
         chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
       );
       promptUserToContinueOrExit();
     } else {
-      bankBalance -= 30000;
-      console.log(
-        chalk.green(`\n Bank Balance after withdrawal: ${bankBalance}`)
-      );
-      promptUserToContinueOrExit();
+      console.log(chalk.red(`\n Insufficient balance`));
     }
   }
   // if user selects "Cash Withdrawal"
   if (selectedOption.option == "Cash Withdrawal") {
     console.log(
       chalk.green(`
-      Current Bank Balance: ${bankBalance}
-      ----------------------------`)
+ Current Bank Balance: ${bankBalance}
+ ----------------------------`)
     );
     const withdrawAmount = await inquirer.prompt([
       {
         name: "amount",
         type: "number",
         message: chalk.gray(`\n Enter your amount: `),
+        validate: (amount) => {
+          if (isNaN(amount)) {
+            return false;
+          }
+          return true;
+        },
       },
     ]);
     bankBalance -= withdrawAmount.amount;
@@ -102,13 +105,19 @@ export const promptUserToSelectOption = async (): Promise<void> => {
   if (selectedOption.option == "Cash Deposit") {
     console.log(
       chalk.green(`
-      Current Bank Balance: ${bankBalance}
-      ----------------------------`)
+ Current Bank Balance: ${bankBalance}
+ ----------------------------`)
     );
     const deposit = await inquirer.prompt({
       name: "amount",
       type: "number",
-      message: chalk.gray("Enter deposit amount: "),
+      message: chalk.gray("\nEnter deposit amount: "),
+      validate: (amount) => {
+        if (isNaN(amount)) {
+          return false;
+        }
+        return true;
+      },
     });
     bankBalance += deposit.amount;
     console.log(chalk.green(`\n Bank Balance after deposit: ${bankBalance}`));

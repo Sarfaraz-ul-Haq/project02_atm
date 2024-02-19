@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
-import { promptUserToSelectOption } from "./promptToSelectAnOption.js";
+import { start } from "./promptToSelectAnOption.js";
 
 // function to authenticate user ID
 export const isUserIDCorrect = (ID: number): boolean => {
@@ -35,7 +35,7 @@ export const promptUserIdAndPin = async (): Promise<void> => {
 
   if (isUserIDCorrect(userAnswer.ID)) {
     if (isUserPinCorrect(userAnswer.pin)) {
-      await promptUserToSelectOption();
+      await start();
     } else {
       console.clear();
       console.log(chalk.red(`\n Wrong user pin, please try again.`));

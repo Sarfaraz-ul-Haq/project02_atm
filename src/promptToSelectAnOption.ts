@@ -7,7 +7,6 @@ import { promptUserToContinueOrExit } from "./useAtmAgain.js";
 // start function
 export const start = async (): Promise<void> => {
   // prompt the user to select an option
-  console.clear();
   let selectedOption = await inquirer.prompt([
     {
       name: "option",
